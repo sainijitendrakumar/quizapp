@@ -6,7 +6,7 @@ const app = express();
 
 
 connectDB(process.env.MONGO_URI);
-app.use(cors({ origin: "https://quizapp-frontend-smoky.vercel.app/" }));
+app.use(cors({ origin: "https://quizapp-frontend-smoky.vercel.app" }));
 app.use(express.json());
 
 
