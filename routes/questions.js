@@ -6,10 +6,10 @@ const User = require('../models/User');
 
 
 // Get all questions (public)
-router.get('/', async (req, res) => {
-const questions = await Question.find(); // hide answers
-res.json(questions);
-});
+// router.get('/', async (req, res) => {
+// const questions = await Question.find(); // hide answers
+// res.json(questions);
+// });
 
 
 // Admin: create question
@@ -19,6 +19,16 @@ if (!user || user.role !== 'admin') return res.status(403).json({ msg: 'Forbidde
 const q = new Question(req.body);
 await q.save();
 res.json(q);
+});
+
+router.get("/:subject", async (req, res) => {
+  try {
+    const subject = req.params.subject;
+    const questions = await Question.find({ subject });
+    res.json(questions);
+  } catch (err) {
+    res.status(500).send("Server error");
+  }
 });
 
 

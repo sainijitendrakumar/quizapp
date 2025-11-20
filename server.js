@@ -11,7 +11,7 @@ app.use(express.json());
 
 
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/questions', require('./routes/questions'));
+app.use('/api/questions/:subject', require('./routes/questions'));
 app.use('/api/results', require('./routes/results'));
 
 
