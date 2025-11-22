@@ -5,8 +5,23 @@ const connectDB = require('./config/db');
 const app = express();
 
 
+const allowedOrigins = [
+ "https://quizapp-frontend-smoky.vercel.app",
+ "http://localhost:5173",
+];
+
 connectDB(process.env.MONGO_URI);
-app.use(cors({ origin: "https://quizapp-frontend-smoky.vercel.app" }));
+app.use(cors({ origin: function (origin, callback) {
+      // Postman ya server requests ke liye origin null ho sakta hai
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, }));
 app.use(express.json());
 
 
